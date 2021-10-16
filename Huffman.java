@@ -1,59 +1,60 @@
 import java.util.*;
-class HuffmanNode
+import java.io.*;
+class Node
 {
-      int data;
-      char c;
-      HuffmanNode left,right;
+    int data;
+    char c;
+    Node left,right;
 }
-class MyComparator implements Comparator<HuffmanNode>
+class MyComparator implements Comparator<Node>
 {
-      public int compare(HuffmanNode x, HuffmanNode y)
-      {
-            return x.data - y.data;
-      }
+    public int compare(Node x, Node y)
+    {
+        return x.data - y.data;
+    }
 }
 public class Huffman
 {
-      public static void print(HuffmanNode root, String s)
-      {
-            if (root.left==null&&root.right== null&&Character.isLetter(root.c))
-            {
-                  System.out.println(root.c + " : " + s);
-                  return;
-            }
-            print(root.left, s + "0");
-            print(root.right, s + "1");
-      }
-      public static void main(String[] args)
-      {
-            int n=6;
-            char[] charArray = { 'a', 'b', 'c', 'd', 'e', 'f' };
-            int[] charfreq = { 5, 9, 12, 13, 16, 45 };
-            PriorityQueue<HuffmanNode> q = new PriorityQueue<HuffmanNode>(n, new MyComparator());
-            for (int i = 0; i < n; i++)
-            {
-                  HuffmanNode hn = new HuffmanNode();
-                  hn.c = charArray[i];
-                  hn.data = charfreq[i];
-                  hn.left = null;
-                  hn.right = null;
-                  q.add(hn);
-            }
-            HuffmanNode root = null;
-            while (q.size() > 1)
-            {
-                  HuffmanNode x = q.peek();
-                  q.poll();
-                  HuffmanNode y = q.peek();
-                  q.poll();
-                  HuffmanNode f = new HuffmanNode();
-                  f.data = x.data + y.data;
-                  f.c = '-';
-                  f.left = x;
-                  f.right = y;
-                  root = f;
-                  q.add(f);
-            }
-            print(root, "");
-      }
+    public static void print(Node root, String s)
+    {
+        if (root.left==null&&root.right== null&&Character.isLetter(root.c))
+        {
+            System.out.println(root.c + " : " + s);
+            return;
+        }
+        print(root.left, s + "0");
+        print(root.right, s + "1");
+    }
+    public static void main(String[] args)
+    {
+        int num=6;
+        char[] charArr = { 'p', 'f', 'l', 'y', 'g', 'r' };
+        int[] charfreq = { 5, 11, 26, 13, 36, 51 };
+        PriorityQueue<Node> temp = new PriorityQueue<Node>(num, new MyComparator());
+        for (int i = 0; i < num; i++)
+        {
+            Node hn = new Node();
+            hn.c = charArr[i];
+            hn.data = charfreq[i];
+            hn.left = null;
+            hn.right = null;
+            temp.add(hn);
+        }
+        Node root = null;
+        while (temp.size() > 1)
+        {
+            Node x = temp.peek();
+            temp.poll();
+            Node y = temp.peek();
+            temp.poll();
+            Node s = new Node();
+            s.data = x.data + y.data;
+            s.c = '-';
+            s.left = x;
+            s.right = y;
+            root = s;
+            temp.add(s);
+        }
+        print(root, "");
+    }
 }
